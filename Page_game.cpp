@@ -3,7 +3,7 @@
 
 void page_game::drawPage() {
 	cleardevice();
-	settextcolor(RGB(0, 0, 255));
+	settextcolor(RGB(0, 0, 255));                     //调整窗口大小之后文字需要重新填写坐标
 	settextstyle(30, 0, L"微软雅黑");
 	outtextxy(230, 540, L"五子棋游戏页");
 	

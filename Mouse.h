@@ -27,16 +27,16 @@ void run() {
 
   //主循环，游戏进行关键！！！
     while (true) {
-        if (peekmessage(&msg, EX_MOUSE | EX_KEY, true)) {
+        if (peekmessage(&msg, EX_MOUSE | EX_KEY, true)) {   //消息获取
             if (msg.message == WM_LBUTTONDOWN) {
                 if (currentPage == PAGE_MENU) {
                     if (msg.x >= 200 && msg.x <= 400 && msg.y >= 100 && msg.y <= 160) {
-                        cleardevice();
-                        P2.drawPage();
-                        currentPage = PAGE_GAME;
-                        FlushBatchDraw(); // 刷新绘图缓冲区
+                        cleardevice();                                   //清屏
+                        P2.drawPage();                                   //绘制页面
+                        currentPage = PAGE_GAME;                         //页面状态切换
+                        FlushBatchDraw();                                // 刷新绘图缓冲区
                     }
-                    else if (msg.x >= 200 && msg.x <= 400 && msg.y >= 200 && msg.y <= 260) {
+                    else if (msg.x >= 200 && msg.x <= 400 && msg.y >= 200 && msg.y <= 260) {      //同上
                         cleardevice();
                         P3.drawPage();
                         currentPage = PAGE_SETTING;
@@ -74,7 +74,7 @@ void run() {
                     }
                 }
             }
-            else if (GetAsyncKeyState(VK_ESCAPE) & 0x8000) {
+            else if (GetAsyncKeyState(VK_ESCAPE) & 0x8000) {            //esc实现，windows窗口的使用
                     // 弹出确认对话框
                     int result = MessageBox(
                         GetHWnd(),

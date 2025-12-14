@@ -17,7 +17,8 @@ button::button(int x0, int y0, int w0, int h0, const wchar_t *text0 ){
 	x = x0; y = y0; w = w0; h = h0; wcscpy_s(text,text0);
 }
 
-
+//绘画按钮，颜色，大小位置，文字自动居中不需要更改
+//主要的外部接口
 void button::drawButton() {
 	setfillcolor(isinButton() ? RGB(100, 200, 255) : RGB(180, 220, 255)); 
 	fillroundrect(x, y, x + w, y + h, 10, 10);

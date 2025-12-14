@@ -5,7 +5,7 @@ void page_menu::drawPage() {
 	cleardevice();
 	settextcolor(RGB(0, 0, 255));
 	settextstyle(30, 0, L"微软雅黑");
-	outtextxy(230,540, L"五子棋菜单页");
+	outtextxy(230,540, L"五子棋菜单页");                      //调整窗口大小之后文字需要重新填写坐标
 	settextstyle(50, 0, L"微软雅黑");
 	outtextxy(240, 0, L"五子棋");
 
