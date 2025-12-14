@@ -134,20 +134,12 @@
     <ClCompile Include="Page_setting.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\EasyX_25.9.10\include\easyx.h" />
-    <ClInclude Include="..\EasyX_25.9.10\include\graphics.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Page.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="..\EasyX_25.9.10\lib\VC2015\x64\EasyXa.lib" />
-    <Library Include="..\EasyX_25.9.10\lib\VC2015\x64\EasyXw.lib" />
-    <Library Include="..\EasyX_25.9.10\lib\VC2015\x86\EasyXa.lib" />
-    <Library Include="..\EasyX_25.9.10\lib\VC2015\x86\EasyXw.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

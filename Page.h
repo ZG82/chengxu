@@ -1,5 +1,5 @@
-#include"easyx.h"
-#include"graphics.h"
+#include"Easyx/include/easyx.h"
+#include"Easyx/include/graphics.h"
 
 #ifndef Page
 #define Page

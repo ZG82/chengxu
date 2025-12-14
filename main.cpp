@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <windows.h>
 #include <iostream>
-#include "easyx.h"
+#include "Easyx/include/easyx.h"
 using namespace std;
 
 int main() {
