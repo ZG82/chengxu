@@ -19,4 +19,23 @@
 	Page为页面，类似于Initialization，我认为页面区别较大（我的程序比较简单，所以基本一样），不同类便于实现这样的需求。
 	4.cpp为具体的函数实现。
 四、构建方式与运行方式
-	暂时略
+	chengxu/
+	├── CMakeLists.txt
+	├── src/
+	│   ├── Head/
+	│   │   ├── Button.h
+	│   │   ├── Initialization.h
+	│   │   ├── Mouse.h
+	│   │   └── Page.h
+	│   ├── SourceFile/
+	│   │   ├── Buttons/
+	│   │   │   └── Button.cpp
+	│   │   ├── Pages/
+	│   │   │   ├── Page_game.cpp
+	│   │   │   ├── Page_menu.cpp
+	│   │   │   ├── Page_save.cpp
+	│   │   │   └── Page_setting.cpp
+	│   │   ├── Initialization.cpp
+	│   │   └── main.cpp
+	├── build/
+	└── README.md
