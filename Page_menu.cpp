@@ -4,22 +4,16 @@
 void page_menu::drawPage() {
 	cleardevice();
 	settextcolor(RGB(0, 0, 255));
-	settextstyle(40, 0, L"微软雅黑");
-	outtextxy(100, 50, L"五子棋菜单页");
+	settextstyle(30, 0, L"微软雅黑");
+	outtextxy(230,540, L"五子棋菜单页");
+	settextstyle(50, 0, L"微软雅黑");
+	outtextxy(240, 0, L"五子棋");
 
-
-	button btnStart(150, 120, 200, 60, L"开始游戏");
-	button btnSetting(150, 220, 200, 60, L"游戏设置");
-
-	/*if (btnStart.m.uMsg == WM_LBUTTONDOWN && btnStart.isinButton()) {
-		currentPage = PAGE_GAME;
-	}
-	else if(btnSetting.m.uMsg == WM_LBUTTONDOWN && btnSetting.isinButton()){
-		currentPage = PAGE_SETTING;
-	}*/
-
+	button btnStart(200, 100, 200, 60, L"开始游戏");
+	button btnSetting(200, 200, 200, 60, L"游戏设置");
+	button btnSave(200, 300, 200, 60, L"存档");
 
 	btnStart.drawButton();
 	btnSetting.drawButton();
+	btnSave.drawButton();
 }
-

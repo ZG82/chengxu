@@ -1,14 +1,10 @@
-#include"Easyx/include/easyx.h"
-#include"Easyx/include/graphics.h"
+#include<easyx.h>
+#include<graphics.h>
 
 #ifndef Page
 #define Page
 
-enum Pages {
-	PAGE_MENU,
-	PAGE_GAME,
-	PAGE_SETTING,
-};
+
 
 
 
@@ -38,6 +34,11 @@ class page_setting :virtual public page {
 public:
 	void drawPage()override ;
 	
+};
+
+class page_save :virtual public page {
+public:
+	void drawPage()override ;
 };
 
 

@@ -1,11 +1,11 @@
 #include"Page.h"
 #include"Button.h"
 
-void page_setting::drawPage() {
+void page_save::drawPage() {
 	cleardevice();
-	settextcolor(RGB(0,0,255));
+	settextcolor(RGB(0, 0, 255));
 	settextstyle(30, 0, L"Œ¢»Ì—≈∫⁄");
-	outtextxy(230, 540, L"”Œœ∑…Ë÷√“≥");
+	outtextxy(270, 540, L"¥Êµµ");
 
 	button btnBack(450, 0, 150, 60, L"∑µªÿ");
 

@@ -36,6 +36,12 @@
     <ClCompile Include="Page_setting.cpp">
       <Filter>源文件\Pages</Filter>
     </ClCompile>
+    <ClCompile Include="Initialization.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Page_save.cpp">
+      <Filter>源文件\Pages</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Page.h">
@@ -47,8 +53,11 @@
     <ClInclude Include="Mouse.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Initialization.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="README.txt" />
+    <Text Include="README.md" />
   </ItemGroup>
 </Project>

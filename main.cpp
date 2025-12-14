@@ -1,64 +1,24 @@
 #include "Page.h"
 #include "Button.h"
 #include"Mouse.h"
+#include"Initialization.h"
 #include <stdio.h>
 #include <windows.h>
 #include <iostream>
-#include "Easyx/include/easyx.h"
+#include <easyx.h>
+
 using namespace std;
 
 int main() {
-    initgraph(600, 600, EX_SHOWCONSOLE);
-    outtextxy(250, 250, L"正在初始化");
-    setbkcolor(WHITE);
-    cleardevice(); // 清屏
-
-    FlushBatchDraw(); // 刷新绘图缓冲区
-
-
-   /* page_menu P1;
-    page_game P2;
-    page_setting P3;*/
-    //Pages currentPage = PAGE_MENU;
-    //P1.drawPage();
-   // FlushBatchDraw();
+    Sleep(500);
+    cout << "正在配置游戏数据..."<<endl;
+    Sleep(500);
+    cout << "正在连接移动数据..."<<endl;
+    Sleep(500);
+    cout << "正在启动游戏..."<<endl;
+    Sleep(500);
+    start GoBang;
+    Sleep(500);
     run();
-    //ExMessage msg;
-    //while (true) {
-    //    if (peekmessage(&msg, EX_MOUSE | EX_KEY, true)) {
-    //        if (msg.message == WM_LBUTTONDOWN)
-    //            if (currentPage == PAGE_MENU) {
-    //                if (msg.x >= 150 && msg.x <= 350 && msg.y >= 120 && msg.y <= 180) {
-    //                    cleardevice();
-    //                    P2.drawPage();
-    //                    currentPage = PAGE_GAME;
-    //                    FlushBatchDraw(); // 刷新绘图缓冲区
-    //                }
-    //                else if (msg.x >= 150 && msg.x <= 350 && msg.y >= 220 && msg.y <= 280) {
-    //                    cleardevice();
-    //                    P3.drawPage();
-    //                    currentPage = PAGE_SETTING;
-    //                    FlushBatchDraw(); // 刷新绘图缓冲区
-    //                }
-    //            }
-    //            else if (currentPage == PAGE_SETTING) {
-    //                if (msg.x >= 420 && msg.x <= 600 && msg.y >= 0 && msg.y <= 60) {
-    //                    cleardevice();
-    //                    P1.drawPage();
-    //                    currentPage = PAGE_MENU;
-    //                    FlushBatchDraw(); // 刷新绘图缓冲区
-    //                }
-    //            }
-    //            else if (currentPage == PAGE_GAME) {
-    //                if (msg.x >= 420 && msg.x <= 600 && msg.y >= 0 && msg.y <= 60) {
-    //                    cleardevice();
-    //                    P1.drawPage();
-    //                    currentPage = PAGE_MENU;
-    //                    FlushBatchDraw(); // 刷新绘图缓冲区
-    //                }
-    //            }
-    //    }
-    //}
-
     Sleep(10);
 }
