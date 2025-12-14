@@ -26,12 +26,12 @@ void run() {
         FlushBatchDraw();
     while (true) {
         if (peekmessage(&msg, EX_MOUSE | EX_KEY, true)) {
-            if (msg.message == WM_LBUTTONDOWN)
+            if (msg.message == WM_LBUTTONDOWN) {
                 if (currentPage == PAGE_MENU) {
                     if (msg.x >= 200 && msg.x <= 400 && msg.y >= 100 && msg.y <= 160) {
                         cleardevice();
                         P2.drawPage();
-                        currentPage=PAGE_GAME;
+                        currentPage = PAGE_GAME;
                         FlushBatchDraw(); // 刷新绘图缓冲区
                     }
                     else if (msg.x >= 200 && msg.x <= 400 && msg.y >= 200 && msg.y <= 260) {
@@ -51,7 +51,7 @@ void run() {
                     if (msg.x >= 420 && msg.x <= 600 && msg.y >= 0 && msg.y <= 60) {
                         cleardevice();
                         P1.drawPage();
-                        currentPage=PAGE_MENU;
+                        currentPage = PAGE_MENU;
                         FlushBatchDraw(); // 刷新绘图缓冲区
                     }
                 }
@@ -59,7 +59,7 @@ void run() {
                     if (msg.x >= 420 && msg.x <= 600 && msg.y >= 0 && msg.y <= 60) {
                         cleardevice();
                         P1.drawPage();
-                        currentPage=PAGE_MENU;
+                        currentPage = PAGE_MENU;
                         FlushBatchDraw(); // 刷新绘图缓冲区
                     }
                 }
@@ -71,6 +71,23 @@ void run() {
                         FlushBatchDraw(); // 刷新绘图缓冲区
                     }
                 }
+            }
+            else if (GetAsyncKeyState(VK_ESCAPE) & 0x8000) {
+                    // 弹出确认对话框
+                    int result = MessageBox(
+                        GetHWnd(),
+                        _T("确定要退出游戏吗？"),
+                        _T("退出确认"),
+                        MB_ICONQUESTION | MB_YESNO
+                    );
+                    if (result == IDYES) {
+
+                        closegraph();
+                        std::cout << std::endl << std::endl << "游戏已退出!!!" << std::endl << std::endl;
+                        exit(0);
+                    }
+            }
+                
         }
         Sleep(10);
     }
