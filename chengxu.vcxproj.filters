@@ -54,10 +54,10 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\EasyX_25.9.10\include\easyx.h">
-      <Filter>Easyx</Filter>
+      <Filter>Easyx\lib</Filter>
     </ClInclude>
     <ClInclude Include="..\EasyX_25.9.10\include\graphics.h">
-      <Filter>Easyx</Filter>
+      <Filter>Easyx\lib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
