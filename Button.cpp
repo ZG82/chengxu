@@ -10,6 +10,7 @@ wchar_t* button::gettext() {return text;}
 
 bool button::isinButton() {
 	return m.x >= this->getx() && m.x <= this->getx() + this->getw() && m.y >= this->gety() && m.y <= this->gety() + this->geth();
+	FlushBatchDraw();
 }
 
 button::button(int x0, int y0, int w0, int h0, const wchar_t *text0 ){
@@ -26,5 +27,5 @@ void button::drawButton() {
 	int tw = textwidth(text);
 	int th = textheight(text);
 	outtextxy(x + (w - tw) / 2, y + (h - th) / 2, text);
-	
+	FlushBatchDraw();
 }

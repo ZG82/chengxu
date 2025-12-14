@@ -44,6 +44,9 @@
     <ClInclude Include="Button.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.txt" />

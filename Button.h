@@ -1,5 +1,5 @@
-#include<easyx.h>
-#include<graphics.h>
+#include"easyx.h"
+#include"graphics.h"
 #include"Page.h"
 
 #ifndef Button
