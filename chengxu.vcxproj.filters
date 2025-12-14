@@ -22,6 +22,9 @@
     <Filter Include="Easyx">
       <UniqueIdentifier>{b4787912-eea8-4edf-a10b-47ba687a9d44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Easyx\lib">
+      <UniqueIdentifier>{1d65fa0d-d35b-4b60-a54c-7e73b66d5a83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -59,5 +62,19 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\EasyX_25.9.10\lib\VC2015\x64\EasyXa.lib">
+      <Filter>Easyx\lib</Filter>
+    </Library>
+    <Library Include="..\EasyX_25.9.10\lib\VC2015\x64\EasyXw.lib">
+      <Filter>Easyx\lib</Filter>
+    </Library>
+    <Library Include="..\EasyX_25.9.10\lib\VC2015\x86\EasyXa.lib">
+      <Filter>Easyx\lib</Filter>
+    </Library>
+    <Library Include="..\EasyX_25.9.10\lib\VC2015\x86\EasyXw.lib">
+      <Filter>Easyx\lib</Filter>
+    </Library>
   </ItemGroup>
 </Project>
