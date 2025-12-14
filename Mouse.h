@@ -24,6 +24,8 @@ void run() {
         ExMessage msg;
         P1.drawPage();
         FlushBatchDraw();
+
+  //主循环，游戏进行关键！！！
     while (true) {
         if (peekmessage(&msg, EX_MOUSE | EX_KEY, true)) {
             if (msg.message == WM_LBUTTONDOWN) {

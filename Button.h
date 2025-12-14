@@ -21,7 +21,7 @@ public:
 	MOUSEMSG m = GetMouseMsg();
 
 	
-	void drawButton();
+	void drawButton();//外部接口
 };
 
 
