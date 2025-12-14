@@ -1,63 +1,68 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="源文件">
+    <Filter Include="build">
+      <UniqueIdentifier>{eb333797-8356-4cae-953c-ab993e57849b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{690441e2-6ae1-495a-963c-e7bcc9d1619a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\SourceFile">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="源文件\Pages">
+    <Filter Include="src\SourceFile\Pages">
       <UniqueIdentifier>{656bbb25-764b-497f-afad-dd6fae5455c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\Buttons">
+    <Filter Include="src\SourceFile\Buttons">
       <UniqueIdentifier>{5f118cf0-0cad-48ab-87ee-c1e9e7d48d1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Head">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
+      <Filter>src\SourceFile</Filter>
     </ClCompile>
     <ClCompile Include="Page_menu.cpp">
-      <Filter>源文件\Pages</Filter>
+      <Filter>src\SourceFile\Pages</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>源文件\Buttons</Filter>
+      <Filter>src\SourceFile\Buttons</Filter>
     </ClCompile>
     <ClCompile Include="Page_game.cpp">
-      <Filter>源文件\Pages</Filter>
+      <Filter>src\SourceFile\Pages</Filter>
     </ClCompile>
     <ClCompile Include="Page_setting.cpp">
-      <Filter>源文件\Pages</Filter>
+      <Filter>src\SourceFile\Pages</Filter>
     </ClCompile>
     <ClCompile Include="Initialization.cpp">
-      <Filter>源文件</Filter>
+      <Filter>src\SourceFile</Filter>
     </ClCompile>
     <ClCompile Include="Page_save.cpp">
-      <Filter>源文件\Pages</Filter>
+      <Filter>src\SourceFile\Pages</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Page.h">
-      <Filter>头文件</Filter>
+      <Filter>src\Head</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
-      <Filter>头文件</Filter>
+      <Filter>src\Head</Filter>
     </ClInclude>
     <ClInclude Include="Mouse.h">
-      <Filter>头文件</Filter>
+      <Filter>src\Head</Filter>
     </ClInclude>
     <ClInclude Include="Initialization.h">
-      <Filter>头文件</Filter>
+      <Filter>src\Head</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CMakeLists.txt" />
   </ItemGroup>
 </Project>
