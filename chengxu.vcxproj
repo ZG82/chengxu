@@ -134,6 +134,8 @@
     <ClCompile Include="Page_setting.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\EasyX_25.9.10\include\easyx.h" />
+    <ClInclude Include="..\EasyX_25.9.10\include\graphics.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Page.h" />

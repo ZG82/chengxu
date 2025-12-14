@@ -19,6 +19,9 @@
     <Filter Include="源文件\Buttons">
       <UniqueIdentifier>{5f118cf0-0cad-48ab-87ee-c1e9e7d48d1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Easyx">
+      <UniqueIdentifier>{b4787912-eea8-4edf-a10b-47ba687a9d44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -46,6 +49,12 @@
     </ClInclude>
     <ClInclude Include="Mouse.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EasyX_25.9.10\include\easyx.h">
+      <Filter>Easyx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EasyX_25.9.10\include\graphics.h">
+      <Filter>Easyx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
