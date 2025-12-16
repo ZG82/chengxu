@@ -58,6 +58,9 @@
     <ClInclude Include="Initialization.h">
       <Filter>src\Head</Filter>
     </ClInclude>
+    <ClInclude Include="Currentpage.h">
+      <Filter>src\Head</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.md" />

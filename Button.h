@@ -1,6 +1,5 @@
 #include<easyx.h>
 #include<graphics.h>
-#include"Page.h"
 
 #ifndef Button
 #define Button
@@ -12,7 +11,10 @@ private:
 	
 public:
 	button(int x0,int y0,int w0,int h0,const wchar_t *text);
+	
+
 	bool isinButton ();
+
 	int getx ();
 	int gety ();
 	int getw ();
@@ -22,6 +24,7 @@ public:
 
 	
 	void drawButton();//外部接口
+	//void drawButton2();
 };
 
 

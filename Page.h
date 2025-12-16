@@ -1,5 +1,7 @@
 #include<easyx.h>
 #include<graphics.h>
+#include"Button.h"
+#include"Currentpage.h"
 
 #ifndef Page
 #define Page
@@ -11,16 +13,14 @@
 class page {
 public:
 	virtual void drawPage()=0;
-	
 	virtual ~page(){}
 	MOUSEMSG m = GetMouseMsg();
-	
 };
 
 class page_menu :virtual public page{
+private:
 public:
 	void drawPage()override ;
-	
 };
 
 class page_game :virtual public page {

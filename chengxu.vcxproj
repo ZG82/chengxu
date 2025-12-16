@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Currentpage.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Page.h" />
     <ClInclude Include="Initialization.h" />
