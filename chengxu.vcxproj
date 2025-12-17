@@ -135,6 +135,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Page_save.cpp" />
     <ClCompile Include="Page_setting.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Toolbox.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +145,7 @@
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Page.h" />
     <ClInclude Include="Initialization.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Toolbox.h" />
   </ItemGroup>
   <ItemGroup>

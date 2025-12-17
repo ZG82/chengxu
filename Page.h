@@ -3,12 +3,10 @@
 #include<stdio.h>
 #include"Button.h"
 #include"Currentpage.h"
-
+#include"Player.h"
 
 #ifndef Page
 #define Page
-
-
 
 
 
@@ -27,18 +25,12 @@ public:
 
 class page_game :virtual public page {
 public:
-	struct Player {
-		int cursorX, cursorY;  // 光标位置
-		int color;             // 棋子颜色
-		bool active;           // 是否轮到此玩家
-	};
-
 	void drawPage()override ;
 	void initGame();
 	void drawBoard();
 	void drawStone(int x, int y, int color);
 	void drawCursor(int x, int y, int color);
-	bool placeStone(Player& player);
+	bool placeStone(player& player0);
 	bool checkWin(int playerColor);
 	void drawGameStatus();
 	void Run();

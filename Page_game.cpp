@@ -1,4 +1,5 @@
 #include"Page.h"
+#include"Player.h"
 
 const int WINDOW_SIZE = 600;         // 窗口尺寸
 const int BOARD_SIZE = 19;           // 棋盘格子数
@@ -6,20 +7,13 @@ const int BOARD_MARGIN = 20;         // 棋盘边距
 const int BOARD_AREA = 400;          // 棋盘区域尺寸
 const int GRID_SIZE = BOARD_AREA / (BOARD_SIZE - 1); // 格子尺寸
 
-// 玩家结构体
-struct Player {
-	int cursorX, cursorY;  // 光标位置
-	int color;             // 棋子颜色
-	bool active;           // 是否轮到此玩家
-};
+
 
 // 全局变量
 int board[BOARD_SIZE][BOARD_SIZE] = { 0 }; // 0=空, 1=玩家1, 2=玩家2
-Player player1, player2;
+player player1, player2;
 bool gameOver = false;
 int winner = 0;
-
-
 
 void page_game::drawPage() {
     cleardevice();
@@ -27,14 +21,11 @@ void page_game::drawPage() {
     settextstyle(30, 0, L"微软雅黑");
     outtextxy(230, 540, L"五子棋游戏页");
 
-
-
     button btnBack(450, 0, 150, 60, L"返回");
 
     btnBack.drawButton();
 }
-
-void page_game::drawBoard(){
+void page_game::drawBoard() {
     // 绘制棋盘背景 (浅黄色)
     setfillcolor(0xEDE4C0);
     solidrectangle(BOARD_MARGIN, BOARD_MARGIN, BOARD_MARGIN + BOARD_AREA, BOARD_MARGIN + BOARD_AREA);
@@ -68,6 +59,21 @@ void page_game::drawBoard(){
         solidcircle(x, y, 4);
     }
 }
+
+void page_game::initGame() {
+    // 初始化玩家1
+    player1.cursorX = BOARD_SIZE / 2;
+    player1.cursorY = BOARD_SIZE / 2;
+    player1.color = 1;
+    player1.active = true;
+
+    // 初始化玩家2
+    player2.cursorX = BOARD_SIZE / 2;
+    player2.cursorY = BOARD_SIZE / 2;
+    player2.color = 2;
+    player2.active = false;
+}
+
 void page_game::drawStone(int x, int y, int color) {
     int screenX = BOARD_MARGIN + x * GRID_SIZE;
     int screenY = BOARD_MARGIN + y * GRID_SIZE;
@@ -96,7 +102,7 @@ void page_game::drawCursor(int x, int y, int color) {
 }
 
 // 放置棋子
-bool page_game::placeStone(Player& player) {
+bool page_game::placeStone(player& player) {
     if (board[player.cursorY][player.cursorX] != 0) {
         return false; // 位置已有棋子
     }
@@ -178,20 +184,6 @@ void page_game::drawGameStatus() {
 	//loadimage(&img_board, _T("assets/棋盘.jpg"), 396, 373);//加载图片，在assets里面（ps：老费劲了找这个路径），还有牛逼的_T
 	//putimage(10, 10, &img_board);//打印图片
 
-
-void page_game::initGame() {
-	// 初始化玩家1
-	player1.cursorX = BOARD_SIZE / 2;
-	player1.cursorY = BOARD_SIZE / 2;
-	player1.color = 1;
-	player1.active = true;
-
-	// 初始化玩家2
-	player2.cursorX = BOARD_SIZE / 2;
-	player2.cursorY = BOARD_SIZE / 2;
-	player2.color = 2;
-	player2.active = false;
-}
 
 void page_game::Run() {
     initgraph(WINDOW_SIZE, WINDOW_SIZE);
