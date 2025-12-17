@@ -128,22 +128,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Gamecore.cpp" />
     <ClCompile Include="Initialization.cpp" />
     <ClCompile Include="Page_game.cpp" />
     <ClCompile Include="Page_menu.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Page_save.cpp" />
     <ClCompile Include="Page_setting.cpp" />
+    <ClCompile Include="Toolbox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
     <ClInclude Include="Currentpage.h" />
+    <ClInclude Include="Gamecore.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Page.h" />
     <ClInclude Include="Initialization.h" />
+    <ClInclude Include="Toolbox.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Dates.txt" />
     <Text Include="README.md" />
+    <Text Include="文本.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CMakeLists.txt">

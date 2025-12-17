@@ -1,4 +1,18 @@
-#include"Page.h"
+#include <graphics.h>
+#include <iostream>
+#include <algorithm>
+
+// 手动实现自定义的 max 函数
+inline int myMax(int a, int b) {
+    return a > b ? a : b;
+}
+
+// 手动实现自定义的 min 函数
+inline int myMin(int a, int b) {
+    return a < b ? a : b;
+}
+
+using namespace std;
 
 const int WINDOW_SIZE = 600;         // 窗口尺寸
 const int BOARD_SIZE = 19;           // 棋盘格子数
@@ -8,33 +22,34 @@ const int GRID_SIZE = BOARD_AREA / (BOARD_SIZE - 1); // 格子尺寸
 
 // 玩家结构体
 struct Player {
-	int cursorX, cursorY;  // 光标位置
-	int color;             // 棋子颜色
-	bool active;           // 是否轮到此玩家
+    int cursorX, cursorY;  // 光标位置
+    int color;             // 棋子颜色
+    bool active;           // 是否轮到此玩家
 };
 
 // 全局变量
-int board[BOARD_SIZE][BOARD_SIZE] = { 0 }; // 0=空, 1=玩家1, 2=玩家2
+int board[BOARD_SIZE][BOARD_SIZE] = {0}; // 0=空, 1=玩家1, 2=玩家2
 Player player1, player2;
 bool gameOver = false;
 int winner = 0;
 
+// 初始化游戏
+void initGame() {
+    // 初始化玩家1
+    player1.cursorX = BOARD_SIZE / 2;
+    player1.cursorY = BOARD_SIZE / 2;
+    player1.color = 1;
+    player1.active = true;
 
-
-void page_game::drawPage() {
-    cleardevice();
-    settextcolor(RGB(0, 0, 255));                     //调整窗口大小之后文字需要重新填写坐标
-    settextstyle(30, 0, L"微软雅黑");
-    outtextxy(230, 540, L"五子棋游戏页");
-
-
-
-    button btnBack(450, 0, 150, 60, L"返回");
-
-    btnBack.drawButton();
+    // 初始化玩家2
+    player2.cursorX = BOARD_SIZE / 2;
+    player2.cursorY = BOARD_SIZE / 2;
+    player2.color = 2;
+    player2.active = false;
 }
 
-void page_game::drawBoard(){
+// 绘制棋盘
+void drawBoard() {
     // 绘制棋盘背景 (浅黄色)
     setfillcolor(0xEDE4C0);
     solidrectangle(BOARD_MARGIN, BOARD_MARGIN, BOARD_MARGIN + BOARD_AREA, BOARD_MARGIN + BOARD_AREA);
@@ -68,15 +83,16 @@ void page_game::drawBoard(){
         solidcircle(x, y, 4);
     }
 }
-void page_game::drawStone(int x, int y, int color) {
+
+// 绘制棋子
+void drawStone(int x, int y, int color) {
     int screenX = BOARD_MARGIN + x * GRID_SIZE;
     int screenY = BOARD_MARGIN + y * GRID_SIZE;
 
     if (color == 1) { // 黑色棋子
         setfillcolor(BLACK);
         solidcircle(screenX, screenY, GRID_SIZE / 2 - 2);
-    }
-    else if (color == 2) { // 白色棋子
+    } else if (color == 2) { // 白色棋子
         setfillcolor(WHITE);
         solidcircle(screenX, screenY, GRID_SIZE / 2 - 2);
         setlinecolor(BLACK);
@@ -85,18 +101,18 @@ void page_game::drawStone(int x, int y, int color) {
 }
 
 // 绘制光标
-void page_game::drawCursor(int x, int y, int color) {
+void drawCursor(int x, int y, int color) {
     int screenX = BOARD_MARGIN + x * GRID_SIZE;
     int screenY = BOARD_MARGIN + y * GRID_SIZE;
 
     setlinecolor(color);
     setlinestyle(PS_SOLID, 2);
     rectangle(screenX - GRID_SIZE / 2 + 2, screenY - GRID_SIZE / 2 + 2,
-        screenX + GRID_SIZE / 2 - 2, screenY + GRID_SIZE / 2 - 2);
+              screenX + GRID_SIZE / 2 - 2, screenY + GRID_SIZE / 2 - 2);
 }
 
 // 放置棋子
-bool page_game::placeStone(Player& player) {
+bool placeStone(Player& player) {
     if (board[player.cursorY][player.cursorX] != 0) {
         return false; // 位置已有棋子
     }
@@ -106,10 +122,10 @@ bool page_game::placeStone(Player& player) {
     return true;
 }
 
-
-bool page_game::checkWin(int playerColor) {
+// 检查胜利条件
+bool checkWin(int playerColor) {
     // 检查方向：水平、垂直、两个对角线
-    const int directions[4][2] = { {1, 0}, {0, 1}, {1, 1}, {1, -1} };
+    const int directions[4][2] = {{1, 0}, {0, 1}, {1, 1}, {1, -1}};
 
     for (int y = 0; y < BOARD_SIZE; y++) {
         for (int x = 0; x < BOARD_SIZE; x++) {
@@ -145,7 +161,8 @@ bool page_game::checkWin(int playerColor) {
     return false;
 }
 
-void page_game::drawGameStatus() {
+// 绘制游戏状态
+void drawGameStatus() {
     settextstyle(20, 0, _T("宋体"));
 
     // 绘制玩家1状态
@@ -165,35 +182,14 @@ void page_game::drawGameStatus() {
         settextcolor(winner == 1 ? RED : BLUE);
         outtextxy(BOARD_AREA + 40, 250, _T("游戏结束!"));
         outtextxy(BOARD_AREA + 40, 280, winner == 1 ? _T("玩家1胜利!") : _T("玩家2胜利!"));
-    }
-    else {
+    } else {
         settextcolor(BLACK);
         outtextxy(BOARD_AREA + 40, 250, _T("游戏进行中..."));
         outtextxy(BOARD_AREA + 40, 280, _T("ESC键退出"));
     }
 }
 
-	//图片设置
-	//IMAGE img_board;
-	//loadimage(&img_board, _T("assets/棋盘.jpg"), 396, 373);//加载图片，在assets里面（ps：老费劲了找这个路径），还有牛逼的_T
-	//putimage(10, 10, &img_board);//打印图片
-
-
-void page_game::initGame() {
-	// 初始化玩家1
-	player1.cursorX = BOARD_SIZE / 2;
-	player1.cursorY = BOARD_SIZE / 2;
-	player1.color = 1;
-	player1.active = true;
-
-	// 初始化玩家2
-	player2.cursorX = BOARD_SIZE / 2;
-	player2.cursorY = BOARD_SIZE / 2;
-	player2.color = 2;
-	player2.active = false;
-}
-
-void page_game::Run() {
+int main() {
     initgraph(WINDOW_SIZE, WINDOW_SIZE);
 
     // 设置窗口背景色
@@ -222,8 +218,7 @@ void page_game::Run() {
         // 绘制光标
         if (player1.active) {
             drawCursor(player1.cursorX, player1.cursorY, RED);
-        }
-        else {
+        } else {
             drawCursor(player2.cursorX, player2.cursorY, BLUE);
         }
 
@@ -236,72 +231,72 @@ void page_game::Run() {
                 // 玩家1控制 (WASD + F)
                 if (player1.active) {
                     switch (msg.vkcode) {
-                    case 'W':
-                        if (player1.cursorY - 1 >= 0) {
-                            player1.cursorY = player1.cursorY - 1;
-                        }
-                        break;
-                    case 'S':
-                        if (player1.cursorY + 1 < BOARD_SIZE) {
-                            player1.cursorY = player1.cursorY + 1;
-                        }
-                        break;
-                    case 'A':
-                        if (player1.cursorX - 1 >= 0) {
-                            player1.cursorX = player1.cursorX - 1;
-                        }
-                        break;
-                    case 'D':
-                        if (player1.cursorX + 1 < BOARD_SIZE) {
-                            player1.cursorX = player1.cursorX + 1;
-                        }
-                        break;
-                    case 'F':
-                        if (placeStone(player1)) {
-                            if (checkWin(player1.color)) {
-                                gameOver = true;
-                                winner = 1;
+                        case 'W':
+                            if (player1.cursorY - 1 >= 0) {
+                                player1.cursorY = player1.cursorY - 1;
                             }
-                            player1.active = false;
-                            player2.active = true;
-                        }
-                        break;
+                            break;
+                        case 'S':
+                            if (player1.cursorY + 1 < BOARD_SIZE) {
+                                player1.cursorY = player1.cursorY + 1;
+                            }
+                            break;
+                        case 'A':
+                            if (player1.cursorX - 1 >= 0) {
+                                player1.cursorX = player1.cursorX - 1;
+                            }
+                            break;
+                        case 'D':
+                            if (player1.cursorX + 1 < BOARD_SIZE) {
+                                player1.cursorX = player1.cursorX + 1;
+                            }
+                            break;
+                        case 'F':
+                            if (placeStone(player1)) {
+                                if (checkWin(player1.color)) {
+                                    gameOver = true;
+                                    winner = 1;
+                                }
+                                player1.active = false;
+                                player2.active = true;
+                            }
+                            break;
                     }
                 }
 
                 // 玩家2控制 (方向键 + 0)
                 if (player2.active) {
                     switch (msg.vkcode) {
-                    case VK_UP:
-                        if (player2.cursorY - 1 >= 0) {
-                            player2.cursorY = player2.cursorY - 1;
-                        }
-                        break;
-                    case VK_DOWN:
-                        if (player2.cursorY + 1 < BOARD_SIZE) {
-                            player2.cursorY = player2.cursorY + 1;
-                        }
-                        break;
-                    case VK_LEFT:
-                        if (player2.cursorX - 1 >= 0) {
-                            player2.cursorX = player2.cursorX - 1;
-                        }
-                        break;
-                    case VK_RIGHT:
-                        if (player2.cursorX + 1 < BOARD_SIZE) {
-                            player2.cursorX = player2.cursorX + 1;
-                        }
-                        break;
-                    case '0':
-                        if (placeStone(player2)) {
-                            if (checkWin(player2.color)) {
-                                gameOver = true;
-                                winner = 2;
+                        case VK_UP:
+                            if (player2.cursorY - 1 >= 0) {
+                                player2.cursorY = player2.cursorY - 1;
                             }
-                            player2.active = false;
-                            player1.active = true;
-                        }
-                        break;
+                            break;
+                        case VK_DOWN:
+                            if (player2.cursorY + 1 < BOARD_SIZE) {
+                                player2.cursorY = player2.cursorY + 1;
+                            }
+                            break;
+                        case VK_LEFT:
+                            if (player2.cursorX - 1 >= 0) {
+                                player2.cursorX = player2.cursorX - 1;
+                            }
+                            break;
+                        case VK_RIGHT:
+                            if (player2.cursorX + 1 < BOARD_SIZE) {
+                                player2.cursorX = player2.cursorX + 1;
+                            }
+                            break;
+                        case '0':
+                            if (placeStone(player2)) {
+                                if (checkWin(player2.color)) {
+                                    gameOver = true;
+                                    winner = 2;
+                                }
+                                player2.active = false;
+                                player1.active = true;
+                            }
+                            break;
                     }
                 }
 
@@ -338,4 +333,5 @@ void page_game::Run() {
     }
 
     closegraph();
+    return 0;
 }

@@ -44,6 +44,12 @@
     <ClCompile Include="Page_save.cpp">
       <Filter>src\SourceFile\Pages</Filter>
     </ClCompile>
+    <ClCompile Include="Gamecore.cpp">
+      <Filter>src\SourceFile</Filter>
+    </ClCompile>
+    <ClCompile Include="Toolbox.cpp">
+      <Filter>src\SourceFile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Page.h">
@@ -61,9 +67,19 @@
     <ClInclude Include="Currentpage.h">
       <Filter>src\Head</Filter>
     </ClInclude>
+    <ClInclude Include="Gamecore.h">
+      <Filter>src\Head</Filter>
+    </ClInclude>
+    <ClInclude Include="Toolbox.h">
+      <Filter>src\Head</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.md" />
+    <Text Include="Dates.txt">
+      <Filter>src</Filter>
+    </Text>
+    <Text Include="文本.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CMakeLists.txt" />

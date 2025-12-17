@@ -10,6 +10,7 @@
 
 #ifndef Mouse
 #define Mouse
+       
 void run() {
         page_menu P1;
         page_game P2;
@@ -20,6 +21,10 @@ void run() {
         FlushBatchDraw();
         currentPage = PAGE_MENU;
 
+        
+
+
+
   //主循环，游戏进行关键！！！
     while (true) {
         if (peekmessage(&msg, EX_MOUSE | EX_KEY, true)) {   //消息获取
@@ -29,6 +34,7 @@ void run() {
                                 P2.drawPage();//绘制页面
                                 currentPage = PAGE_GAME;
                                 FlushBatchDraw();                                // 刷新绘图缓冲区
+                                P2.Run();
                             }
                     }
                     else if (msg.x >= 200 && msg.x <= 400 && msg.y >= 200 && msg.y <= 260) {      //同上
