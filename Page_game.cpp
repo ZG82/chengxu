@@ -8,12 +8,14 @@ const int BOARD_AREA = 400;          // 棋盘区域尺寸
 const int GRID_SIZE = BOARD_AREA / (BOARD_SIZE - 1); // 格子尺寸
 
 
-
-// 全局变量
 int board[BOARD_SIZE][BOARD_SIZE] = { 0 }; // 0=空, 1=玩家1, 2=玩家2
 player player1, player2;
 bool gameOver = false;
 int winner = 0;
+
+//变量的声明
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 void page_game::drawPage() {
     cleardevice();
@@ -25,6 +27,22 @@ void page_game::drawPage() {
 
     btnBack.drawButton();
 }
+
+/// <summary>
+/// ////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// </summary>
+void page_game::cleararr() {
+    for (int y = 0; y < BOARD_SIZE; y++) {
+        for (int x = 0; x < BOARD_SIZE; x++) {
+            board[y][x] = 0;
+        }
+    }
+}
+
+/// <summary>
+/// /////////////////////////////////////////////////////////////////////////////////////////////////
+/// </summary>
+
 void page_game::drawBoard() {
     // 绘制棋盘背景 (浅黄色)
     setfillcolor(0xEDE4C0);
@@ -59,7 +77,9 @@ void page_game::drawBoard() {
         solidcircle(x, y, 4);
     }
 }
-
+/// <summary>
+/// ////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// </summary>
 void page_game::initGame() {
     // 初始化玩家1
     player1.cursorX = BOARD_SIZE / 2;
@@ -73,7 +93,12 @@ void page_game::initGame() {
     player2.color = 2;
     player2.active = false;
 }
-
+/// <summary>
+/// ////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// </summary>
+/// <param name="x"></param>
+/// <param name="y"></param>
+/// <param name="color"></param>
 void page_game::drawStone(int x, int y, int color) {
     int screenX = BOARD_MARGIN + x * GRID_SIZE;
     int screenY = BOARD_MARGIN + y * GRID_SIZE;
@@ -90,6 +115,7 @@ void page_game::drawStone(int x, int y, int color) {
     }
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 绘制光标
 void page_game::drawCursor(int x, int y, int color) {
     int screenX = BOARD_MARGIN + x * GRID_SIZE;
@@ -97,10 +123,10 @@ void page_game::drawCursor(int x, int y, int color) {
 
     setlinecolor(color);
     setlinestyle(PS_SOLID, 2);
-    rectangle(screenX - GRID_SIZE / 2 + 2, screenY - GRID_SIZE / 2 + 2,
-        screenX + GRID_SIZE / 2 - 2, screenY + GRID_SIZE / 2 - 2);
+    rectangle(screenX - GRID_SIZE / 2 + 2, screenY - GRID_SIZE / 2 + 2,screenX + GRID_SIZE / 2 - 2, screenY + GRID_SIZE / 2 - 2);
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 放置棋子
 bool page_game::placeStone(player& player) {
     if (board[player.cursorY][player.cursorX] != 0) {
@@ -112,7 +138,11 @@ bool page_game::placeStone(player& player) {
     return true;
 }
 
-
+/// <summary>
+/// //////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// </summary>
+/// <param name="playerColor"></param>
+/// <returns></returns>
 bool page_game::checkWin(int playerColor) {
     // 检查方向：水平、垂直、两个对角线
     const int directions[4][2] = { {1, 0}, {0, 1}, {1, 1}, {1, -1} };
@@ -150,27 +180,60 @@ bool page_game::checkWin(int playerColor) {
     }
     return false;
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void page_game::drawGameStatus() {
     settextstyle(20, 0, _T("宋体"));
 
     // 绘制玩家1状态
     settextcolor(player1.active ? RED : BLACK);
-    outtextxy(BOARD_AREA + 40, 50, _T("玩家1 (黑色)"));
-    outtextxy(BOARD_AREA + 40, 80, _T("控制: WASD移动"));
-    outtextxy(BOARD_AREA + 40, 110, _T("F键落子"));
+    outtextxy(BOARD_AREA + 40, 70, _T("玩家1 (黑色)"));
+    outtextxy(BOARD_AREA + 40, 100, _T("控制: WASD移动"));
+    outtextxy(BOARD_AREA + 40, 130, _T("F键落子"));
 
     // 绘制玩家2状态
     settextcolor(player2.active ? BLUE : BLACK);
-    outtextxy(BOARD_AREA + 40, 150, _T("玩家2 (白色)"));
-    outtextxy(BOARD_AREA + 40, 180, _T("控制: 方向键移动"));
-    outtextxy(BOARD_AREA + 40, 210, _T("0键落子"));
+    outtextxy(BOARD_AREA + 40, 170, _T("玩家2 (白色)"));
+    outtextxy(BOARD_AREA + 40, 200, _T("控制: 方向键移动"));
+    outtextxy(BOARD_AREA + 40, 230, _T("0键落子"));
 
     // 绘制游戏状态
     if (gameOver) {
-        settextcolor(winner == 1 ? RED : BLUE);
+        /*settextcolor(winner == 1 ? RED : BLUE);
         outtextxy(BOARD_AREA + 40, 250, _T("游戏结束!"));
-        outtextxy(BOARD_AREA + 40, 280, winner == 1 ? _T("玩家1胜利!") : _T("玩家2胜利!"));
+        outtextxy(BOARD_AREA + 40, 280, winner == 1 ? _T("玩家1胜利!") : _T("玩家2胜利!"));*/
+        for (int y = 0; y < BOARD_SIZE; y++) {
+            for (int x = 0; x < BOARD_SIZE; x++) {
+                if (board[y][x] != 0) {
+                    drawStone(x, y, board[y][x]);
+                }
+            }
+        }
+        if (winner==1) {
+            // 弹出确认对话框
+            int result = MessageBox(
+                GetHWnd(),
+                _T("玩家1胜利！"),
+                _T("再来一把"),
+                MB_ICONQUESTION | MB_YESNO
+            );
+            if (result == IDYES) {
+                cleararr();
+                gameOver = false;
+            }
+        }
+        else {
+            // 弹出确认对话框
+            int result = MessageBox(
+                GetHWnd(),
+                _T("玩家2胜利！"),
+                _T("是否再来一把？"),
+                MB_ICONQUESTION | MB_YESNO
+            );
+            if (result == IDYES) {
+                cleararr();
+                gameOver = false;
+            }
+        }
     }
     else {
         settextcolor(BLACK);
@@ -179,18 +242,15 @@ void page_game::drawGameStatus() {
     }
 }
 
-	//图片设置
-	//IMAGE img_board;
-	//loadimage(&img_board, _T("assets/棋盘.jpg"), 396, 373);//加载图片，在assets里面（ps：老费劲了找这个路径），还有牛逼的_T
-	//putimage(10, 10, &img_board);//打印图片
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 void page_game::Run() {
-    initgraph(WINDOW_SIZE, WINDOW_SIZE);
+    //initgraph(WINDOW_SIZE, WINDOW_SIZE);
 
     // 设置窗口背景色
-    setbkcolor(WHITE);
-    cleardevice();
+    //setbkcolor(WHITE);
+    //cleardevice();
 
     initGame();
 
@@ -225,7 +285,7 @@ void page_game::Run() {
         // 处理键盘输入
         if (peekmessage(&msg, EX_KEY)) {
             if (msg.message == WM_KEYDOWN) {
-                // 玩家1控制 (WASD + F)
+////////////////// 玩家1控制 (WASD + F)
                 if (player1.active) {
                     switch (msg.vkcode) {
                     case 'W':
@@ -260,8 +320,9 @@ void page_game::Run() {
                         break;
                     }
                 }
+//////////////////玩家1控制结束
 
-                // 玩家2控制 (方向键 + 0)
+//////////////////玩家2控制 (方向键 + 0)
                 if (player2.active) {
                     switch (msg.vkcode) {
                     case VK_UP:
@@ -296,12 +357,12 @@ void page_game::Run() {
                         break;
                     }
                 }
-
+/////////////////玩家2控制结束
                 // 处理窗口关闭
                 if (msg.vkcode == VK_ESCAPE) {
                     gameOver = true;
                 }
-
+                drawGameStatus();
                 // 清除消息
                 flushmessage(EX_KEY);
             }
@@ -310,6 +371,8 @@ void page_game::Run() {
         FlushBatchDraw();
         Sleep(20); // 减少CPU占用
     }
+    //游戏while结束，gameover发生
+
     EndBatchDraw();
 
     // 最终绘制一次胜利信息
@@ -329,5 +392,5 @@ void page_game::Run() {
         flushmessage(EX_KEY);
     }
 
-    closegraph();
+    //closegraph();
 }

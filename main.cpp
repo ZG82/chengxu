@@ -21,7 +21,7 @@ int main() {
     Sleep(500);
     start GoBang;
     Sleep(500);
-    run();
+    run();              //Mouse.hжа
     Sleep(10);
     
    

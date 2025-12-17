@@ -34,8 +34,7 @@ public:
 	bool checkWin(int playerColor);
 	void drawGameStatus();
 	void Run();
-	
-	
+	void cleararr();
 };
 
 class page_setting :virtual public page {
