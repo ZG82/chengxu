@@ -309,13 +309,16 @@ void page_game::Run() {
                         }
                         break;
                     case 'F':
-                        if (placeStone(player1)) {
+                        if (placeStone(player1)) { 
+                            player1.active = false;
+                            player2.active = true;
                             if (checkWin(player1.color)) {
                                 gameOver = true;
                                 winner = 1;
+                                player1.active = true;
+                                player2.active = false;
                             }
-                            player1.active = false;
-                            player2.active = true;
+                           
                         }
                         break;
                     }
@@ -347,12 +350,13 @@ void page_game::Run() {
                         break;
                     case '0':
                         if (placeStone(player2)) {
+                            player2.active = false;
+                            player1.active = true;
                             if (checkWin(player2.color)) {
                                 gameOver = true;
                                 winner = 2;
                             }
-                            player2.active = false;
-                            player1.active = true;
+                           
                         }
                         break;
                     }
@@ -384,7 +388,6 @@ void page_game::Run() {
             }
         }
     }
-    drawGameStatus();
     FlushBatchDraw();
 
     // µÈ´ýÍË³ö
