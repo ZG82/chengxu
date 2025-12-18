@@ -1,3 +1,5 @@
+#include"Page.h"
+
 #ifndef Initialization
 #define Initialization
 

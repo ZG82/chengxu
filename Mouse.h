@@ -12,11 +12,11 @@
 #define Mouse
        
 void run() {
+        ExMessage msg;
         page_menu P1;
         page_game P2;
         page_setting P3;
         page_save P4;
-        ExMessage msg;
         P1.drawPage();
         FlushBatchDraw();
         currentPage = PAGE_MENU;
@@ -36,7 +36,7 @@ void run() {
                                        P2.Run();                                                                                    //
                                    }                                                                                                //
                            }                                                                                                        //
-                           else if (msg.x >= 200 && msg.x <= 400 && msg.y >= 200 && msg.y <= 260) {      //同上                     //
+                           else if (msg.x >= 200 && msg.x <= 400 && msg.y >= 200 && msg.y <= 260) {      //同上                      //
                                    if (msg.message == WM_LBUTTONDOWN) {                                                             //
                                        P3.drawPage();//绘制页面                                                                      //
                                        currentPage = PAGE_SETTING;                                                                  //

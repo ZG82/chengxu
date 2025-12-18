@@ -1,13 +1,4 @@
-#include"Toolbox.h"
-#include "Page.h"
 #include"Mouse.h"
-#include"Initialization.h"
-#include<stdio.h>
-#include<windows.h>
-#include<iostream>
-#include<easyx.h>
-#include<conio.h>
-#include<vector>
 
 using namespace std;
 
@@ -23,7 +14,4 @@ int main() {
     Sleep(500);
     run();              //Mouse.h÷–
     Sleep(10);
-    
-   
-       
 }

@@ -1,5 +1,9 @@
 #include"Page.h"
 #include"Player.h"
+#include <iostream>
+#include "Initialization.h"
+
+
 
 const int WINDOW_SIZE = 600;         // 窗口尺寸
 const int BOARD_SIZE = 19;           // 棋盘格子数
@@ -132,9 +136,8 @@ bool page_game::placeStone(player& player) {
     if (board[player.cursorY][player.cursorX] != 0) {
         return false; // 位置已有棋子
     }
-
-    board[player.cursorY][player.cursorX] = player.color;
     drawStone(player.cursorX, player.cursorY, player.color);
+    board[player.cursorY][player.cursorX] = player.color;
     return true;
 }
 
@@ -198,9 +201,6 @@ void page_game::drawGameStatus() {
 
     // 绘制游戏状态
     if (gameOver) {
-        /*settextcolor(winner == 1 ? RED : BLUE);
-        outtextxy(BOARD_AREA + 40, 250, _T("游戏结束!"));
-        outtextxy(BOARD_AREA + 40, 280, winner == 1 ? _T("玩家1胜利!") : _T("玩家2胜利!"));*/
         for (int y = 0; y < BOARD_SIZE; y++) {
             for (int x = 0; x < BOARD_SIZE; x++) {
                 if (board[y][x] != 0) {
@@ -256,6 +256,7 @@ void page_game::Run() {
 
     // 消息处理变量
     ExMessage msg;
+    ExMessage msg0;
 
     BeginBatchDraw();
     while (!gameOver) {
@@ -282,6 +283,25 @@ void page_game::Run() {
         // 绘制游戏状态
         drawGameStatus();
 
+      //判断返回
+      
+      //if (peekmessage(&msg0, EX_MOUSE)) {
+      //    if (msg0.x >= 420 && msg0.x <= 600 && msg0.y >= 0 && msg0.y <= 60 && msg0.message == WM_LBUTTONDOWN) {
+      //        int result = MessageBox(
+      //            GetHWnd(),
+      //            _T("提示"),
+      //            _T("确定退出吗？"),
+      //            MB_ICONQUESTION | MB_YESNO
+      //        );
+      //        if (result == IDYES) {
+      //            P11.drawPage();
+      //            cleararr();
+      //            gameOver = true;
+      //        }
+      //        currentPage = PAGE_MENU;
+      //        FlushBatchDraw(); // 刷新绘图缓冲区 
+      //    }
+      //}
         // 处理键盘输入
         if (peekmessage(&msg, EX_KEY)) {
             if (msg.message == WM_KEYDOWN) {
