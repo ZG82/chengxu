@@ -9,8 +9,4 @@ public:
 	~start();
 };
 
-
-
-
-
 #endif
