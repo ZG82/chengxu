@@ -11,6 +11,8 @@ const int BOARD_MARGIN = 20;         // 棋盘边距
 const int BOARD_AREA = 400;          // 棋盘区域尺寸
 const int GRID_SIZE = BOARD_AREA / (BOARD_SIZE - 1); // 格子尺寸
 
+bool isreturn = false;
+
 
 int board[BOARD_SIZE][BOARD_SIZE] = { 0 }; // 0=空, 1=玩家1, 2=玩家2
 player player1, player2;
@@ -19,7 +21,6 @@ int winner = 0;
 
 //变量的声明
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 void page_game::drawPage() {
     cleardevice();
@@ -260,6 +261,9 @@ void page_game::Run() {
 
     BeginBatchDraw();
     while (!gameOver) {
+        // 绘制页面顶部与返回按钮，先清空屏幕的一部分并显示页眉
+        drawPage();
+        
         // 绘制棋盘
         drawBoard();
 
@@ -283,27 +287,35 @@ void page_game::Run() {
         // 绘制游戏状态
         drawGameStatus();
 
-      //判断返回
-      
-      //if (peekmessage(&msg0, EX_MOUSE)) {
-      //    if (msg0.x >= 420 && msg0.x <= 600 && msg0.y >= 0 && msg0.y <= 60 && msg0.message == WM_LBUTTONDOWN) {
-      //        int result = MessageBox(
-      //            GetHWnd(),
-      //            _T("提示"),
-      //            _T("确定退出吗？"),
-      //            MB_ICONQUESTION | MB_YESNO
-      //        );
-      //        if (result == IDYES) {
-      //            P11.drawPage();
-      //            cleararr();
-      //            gameOver = true;
-      //        }
-      //        currentPage = PAGE_MENU;
-      //        FlushBatchDraw(); // 刷新绘图缓冲区 
-      //    }
-      //}
-        // 处理键盘输入
-        if (peekmessage(&msg, EX_KEY)) {
+        // 处理键盘和鼠标输入
+        if (peekmessage(&msg, EX_MOUSE | EX_KEY)) {
+            // 处理鼠标返回按钮
+            if (msg.message == WM_LBUTTONDOWN) {
+                if (msg.x >= 450 && msg.x <= 600 && msg.y >= 0 && msg.y <= 60) {
+                    // 弹出确认对话框
+                    int result = MessageBox(
+                        GetHWnd(),
+                        _T("确认要返回主菜单吗？"),
+                        _T("返回确认"),
+                        MB_ICONQUESTION | MB_YESNO
+                    );
+                    if (result == IDYES) {
+                        // 清除其他挂起的消息，避免回到菜单后被遗留的鼠标事件触发
+                        flushmessage(EX_MOUSE);
+                        flushmessage(EX_KEY);
+                        // 重置游戏状态，清除棋盘，避免返回后棋盘残留
+                        cleararr();
+                        gameOver = false;
+                        winner = 0;
+                        initGame();
+                        // 返回菜单（不要在这里绘制菜单，由外层主循环负责重绘）
+                        currentPage = PAGE_MENU;
+                        break; // 退出Run，回到外层消息循环
+                    }
+                    // 否则继续游戏
+                }
+            }
+
             if (msg.message == WM_KEYDOWN) {
 ////////////////// 玩家1控制 (WASD + F)
                 if (player1.active) {
@@ -382,9 +394,16 @@ void page_game::Run() {
                     }
                 }
 /////////////////玩家2控制结束
-                // 处理窗口关闭
+                // 处理窗口关闭或返回菜单
                 if (msg.vkcode == VK_ESCAPE) {
+                    // 返回菜单而不是直接退出程序
+                    currentPage = PAGE_MENU;
                     gameOver = true;
+                    winner = 0;
+                    // 清除消息并退出Run
+                    flushmessage(EX_MOUSE);
+                    flushmessage(EX_KEY);
+                    break;
                 }
                 drawGameStatus();
                 // 清除消息
@@ -398,6 +417,14 @@ void page_game::Run() {
     //游戏while结束，gameover发生
 
     EndBatchDraw();
+
+    // 如果用户在游戏中选择返回菜单，清理残留消息并返回，让外层主循环负责重绘主菜单
+    if (currentPage == PAGE_MENU) {
+        // 清理残留消息
+        flushmessage(EX_MOUSE);
+        flushmessage(EX_KEY);
+        return;
+    }
 
     // 最终绘制一次胜利信息
     drawBoard();

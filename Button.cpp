@@ -1,6 +1,7 @@
 #include"Button.h"
 #include<string.h>
 #include<cwchar>
+#include<windows.h>
 
 int button::getx() {return x;}
 int button::gety() {return y;}
@@ -9,8 +10,11 @@ int button::geth() {return h;}
 wchar_t* button::gettext() {return text;}
 
 bool button::isinButton() {
-	return m.x >= this->getx() && m.x <= this->getx() + this->getw() && m.y >= this->gety() && m.y <= this->gety() + this->geth();
-	FlushBatchDraw();
+	POINT pt;
+	if (!GetCursorPos(&pt)) return false;
+	HWND h = GetHWnd();
+	ScreenToClient(h, &pt);
+	return pt.x >= this->getx() && pt.x <= this->getx() + this->getw() && pt.y >= this->gety() && pt.y <= this->gety() + this->geth();
 }
 
 button::button(int x0, int y0, int w0, int h0, const wchar_t *text0 ){
@@ -30,17 +34,5 @@ void button::drawButton() {
 	int tw = textwidth(text);
 	int th = textheight(text);
 	outtextxy(x + (w - tw) / 2, y + (h - th) / 2, text);
-	FlushBatchDraw();
-}
 
-//void button::drawButton2() {
-//	setfillcolor(RGB(100, 200, 255));
-//	fillroundrect(x, y, x + w, y + h, 10, 10);
-//	settextcolor(BLACK);
-//	settextstyle(24, 0, L"Î¢ÈíÑÅºÚ");
-//	setbkmode(TRANSPARENT);
-//	int tw = textwidth(text);
-//	int th = textheight(text);
-//	outtextxy(x + (w - tw) / 2, y + (h - th) / 2, text);
-//	FlushBatchDraw();
-//}
+}

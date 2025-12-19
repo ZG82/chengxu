@@ -20,12 +20,11 @@ public:
 	int getw ();
 	int geth ();
 	wchar_t* gettext ();
-	MOUSEMSG m = GetMouseMsg();
-
+	
 	
 	void drawButton();//外部接口
 	//void drawButton2();
 };
 
 
-#endif 
+#endif
