@@ -1,6 +1,7 @@
 #include"Page.h"
 #include"Player.h"
 #include <iostream>
+#include <cstdlib>
 #include "Initialization.h"
 
 
@@ -396,14 +397,22 @@ void page_game::Run() {
 /////////////////玩家2控制结束
                 // 处理窗口关闭或返回菜单
                 if (msg.vkcode == VK_ESCAPE) {
-                    // 返回菜单而不是直接退出程序
-                    currentPage = PAGE_MENU;
-                    gameOver = true;
-                    winner = 0;
-                    // 清除消息并退出Run
-                    flushmessage(EX_MOUSE);
-                    flushmessage(EX_KEY);
-                    break;
+                    // 弹出确认对话框，确认是否退出程序
+                    int result = MessageBox(
+                        GetHWnd(),
+                        _T("确认要退出程序吗？"),
+                        _T("退出确认"),
+                        MB_ICONQUESTION | MB_YESNO
+                    );
+                    if (result == IDYES) {
+                        // 直接退出程序
+                        // 清理可能的消息
+                        flushmessage(EX_MOUSE);
+                        flushmessage(EX_KEY);
+                        EndBatchDraw();
+                        exit(0);
+                    }
+                    // 否则继续游戏
                 }
                 drawGameStatus();
                 // 清除消息
