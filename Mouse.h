@@ -38,12 +38,15 @@ void run() {
                      //鼠标消息获取的判定，页面情况的分类
                             if (msg.x >= 200 && msg.x <= 400 && msg.y >= 100 && msg.y <= 160) {
                                 if (msg.message == WM_LBUTTONDOWN) {
-                                    // 直接进入游戏运行，让 page_game::Run 负责所有绘制
                                     currentPage = PAGE_GAME;
                                     // 清空屏幕并绘制游戏页面一次，确保菜单已被清除且返回按钮可见
                                     BeginBatchDraw();
                                     cleardevice();
                                     EndBatchDraw();
+                                    // 清除残留的鼠标/键盘消息，避免立即被game页面误判为返回或其他操作
+                                    flushmessage(EX_MOUSE);
+                                    flushmessage(EX_KEY);
+                                    Sleep(50); // 稍作等待，稳定绘图缓冲区
                                     // 进入游戏主循环
                                     P2.Run();
                                     // 确保游戏内的批绘已结束并清理消息

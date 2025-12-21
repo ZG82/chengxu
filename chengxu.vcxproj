@@ -128,7 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Gamecore.cpp" />
+    <ClCompile Include="Account.cpp" />
     <ClCompile Include="Initialization.cpp" />
     <ClCompile Include="Page_game.cpp" />
     <ClCompile Include="Page_menu.cpp" />
@@ -141,7 +141,7 @@
   <ItemGroup>
     <ClInclude Include="Button.h" />
     <ClInclude Include="Currentpage.h" />
-    <ClInclude Include="Gamecore.h" />
+    <ClInclude Include="Account.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Page.h" />
     <ClInclude Include="Initialization.h" />

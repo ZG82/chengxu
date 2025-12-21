@@ -186,6 +186,17 @@ bool page_game::checkWin(int playerColor) {
     return false;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+bool page_game::istie() {
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            if (board[i][j] == 0) { return false; }
+        }
+    }
+    return true;
+}
+/// <summary>
+/// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// </summary>
 void page_game::drawGameStatus() {
     settextstyle(20, 0, _T("宋体"));
 
@@ -223,11 +234,24 @@ void page_game::drawGameStatus() {
                 gameOver = false;
             }
         }
-        else {
+        else if(winner==2){
             // 弹出确认对话框
             int result = MessageBox(
                 GetHWnd(),
                 _T("玩家2胜利！"),
+                _T("是否再来一把？"),
+                MB_ICONQUESTION | MB_YESNO
+            );
+            if (result == IDYES) {
+                cleararr();
+                gameOver = false;
+            }
+        }
+        else if (winner == 3) {
+            // 弹出确认对话框
+            int result = MessageBox(
+                GetHWnd(),
+                _T("平局"),
                 _T("是否再来一把？"),
                 MB_ICONQUESTION | MB_YESNO
             );
@@ -287,6 +311,12 @@ void page_game::Run() {
 
         // 绘制游戏状态
         drawGameStatus();
+
+        // 判断平局
+        if (istie()) {
+            gameOver = true;
+            winner = 3;
+        }
 
         // 处理键盘和鼠标输入
         if (peekmessage(&msg, EX_MOUSE | EX_KEY)) {

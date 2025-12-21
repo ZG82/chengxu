@@ -44,7 +44,7 @@
     <ClCompile Include="Page_save.cpp">
       <Filter>src\SourceFile\Pages</Filter>
     </ClCompile>
-    <ClCompile Include="Gamecore.cpp">
+    <ClCompile Include="Account.cpp">
       <Filter>src\SourceFile</Filter>
     </ClCompile>
     <ClCompile Include="Toolbox.cpp">
@@ -70,7 +70,7 @@
     <ClInclude Include="Currentpage.h">
       <Filter>src\Head</Filter>
     </ClInclude>
-    <ClInclude Include="Gamecore.h">
+    <ClInclude Include="Account.h">
       <Filter>src\Head</Filter>
     </ClInclude>
     <ClInclude Include="Toolbox.h">

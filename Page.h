@@ -14,7 +14,7 @@ class page {
 public:
 	virtual void drawPage()=0;
 	virtual ~page(){}
-	MOUSEMSG m = GetMouseMsg();
+	MOUSEMSG m;
 };
 
 class page_menu :virtual public page{
@@ -33,6 +33,7 @@ public:
 	bool placeStone(player& player0);
 	bool checkWin(int playerColor);
 	void drawGameStatus();
+	bool istie();
 	void Run();
 	void cleararr();
 };
