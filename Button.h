@@ -19,8 +19,7 @@ public:
 	int gety ();
 	int getw ();
 	int geth ();
-	wchar_t* gettext ();
-	
+	wchar_t* gettext ();	
 	
 	void drawButton();//外部接口
 	//void drawButton2();

@@ -20,6 +20,9 @@ player player1, player2;
 bool gameOver = false;
 int winner = 0;
 
+// Store the five winning coordinates when a win is detected
+int winCoords[5][2] = { {0,0} };
+
 //变量的声明
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -43,6 +46,8 @@ void page_game::cleararr() {
             board[y][x] = 0;
         }
     }
+    // clear recorded winning coords
+    for (int i = 0; i < 5; ++i) { winCoords[i][0] = winCoords[i][1] = 0; }
 }
 
 /// <summary>
@@ -121,6 +126,16 @@ void page_game::drawStone(int x, int y, int color) {
     }
 }
 
+// 胜利光标绘制
+void page_game::drawHighlight(int x, int y) {
+    int screenX = BOARD_MARGIN + x * GRID_SIZE;
+    int screenY = BOARD_MARGIN + y * GRID_SIZE;
+    setlinestyle(PS_SOLID, 2);
+    setlinecolor(RGB(255, 215, 0));
+    circle(screenX, screenY, GRID_SIZE / 2 + 3);
+    circle(screenX, screenY, GRID_SIZE / 2 + 5);
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 绘制光标
 void page_game::drawCursor(int x, int y, int color) {
@@ -129,7 +144,7 @@ void page_game::drawCursor(int x, int y, int color) {
 
     setlinecolor(color);
     setlinestyle(PS_SOLID, 2);
-    rectangle(screenX - GRID_SIZE / 2 + 2, screenY - GRID_SIZE / 2 + 2,screenX + GRID_SIZE / 2 - 2, screenY + GRID_SIZE / 2 - 2);
+    rectangle(screenX - GRID_SIZE / 2 + 2, screenY - GRID_SIZE / 2 + 2, screenX + GRID_SIZE / 2 - 2, screenY + GRID_SIZE / 2 - 2);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -157,29 +172,39 @@ bool page_game::checkWin(int playerColor) {
             if (board[y][x] != playerColor) continue;
 
             for (int d = 0; d < 4; d++) {
-                int count = 1;
                 int dx = directions[d][0];
                 int dy = directions[d][1];
 
-                // 正方向检查
+                int count_forward = 0;
                 for (int i = 1; i < 5; i++) {
                     int nx = x + dx * i;
                     int ny = y + dy * i;
                     if (nx < 0 || nx >= BOARD_SIZE || ny < 0 || ny >= BOARD_SIZE) break;
-                    if (board[ny][nx] == playerColor) count++;
+                    if (board[ny][nx] == playerColor) count_forward++;
                     else break;
                 }
 
-                // 反方向检查
+                int count_back = 0;
                 for (int i = 1; i < 5; i++) {
                     int nx = x - dx * i;
                     int ny = y - dy * i;
                     if (nx < 0 || nx >= BOARD_SIZE || ny < 0 || ny >= BOARD_SIZE) break;
-                    if (board[ny][nx] == playerColor) count++;
+                    if (board[ny][nx] == playerColor) count_back++;
                     else break;
                 }
 
-                if (count >= 5) return true;
+                int total = 1 + count_forward + count_back;
+                if (total >= 5) {
+                    // compute starting coordinate of the sequence
+                    int startX = x - dx * count_back;
+                    int startY = y - dy * count_back;
+                    // store exactly five positions
+                    for (int i = 0; i < 5; i++) {
+                        winCoords[i][0] = startX + dx * i;
+                        winCoords[i][1] = startY + dy * i;
+                    }
+                    return true;
+                }
             }
         }
     }
@@ -221,6 +246,19 @@ void page_game::drawGameStatus() {
                 }
             }
         }
+        if (winner == 1 || winner == 2) {
+            for (int i = 0; i < 5; ++i) {
+                int wx = winCoords[i][0];
+                int wy = winCoords[i][1];
+                if (wx >= 0 && wx < BOARD_SIZE && wy >= 0 && wy < BOARD_SIZE) {
+                    drawHighlight(wx, wy);
+                }
+            }
+        }
+        if (gameOver && (winner == 1 || winner == 2 || winner == 3)) {
+            FlushBatchDraw();
+        }
+
         if (winner==1) {
             // 弹出确认对话框
             int result = MessageBox(
@@ -474,12 +512,20 @@ void page_game::Run() {
             }
         }
     }
+   //绘制胜利光圈
+    if (winner == 1 || winner == 2) {
+        for (int i = 0; i < 5; ++i) {
+            int wx = winCoords[i][0];
+            int wy = winCoords[i][1];
+            if (wx >= 0 && wx < BOARD_SIZE && wy >= 0 && wy < BOARD_SIZE) {
+                drawHighlight(wx, wy);
+            }
+        }
+    }
     FlushBatchDraw();
 
     // 等待退出
     while (peekmessage(&msg, EX_KEY) && msg.vkcode != VK_ESCAPE) {
         flushmessage(EX_KEY);
     }
-
-    //closegraph();
 }

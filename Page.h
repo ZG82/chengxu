@@ -14,7 +14,7 @@ class page {
 public:
 	virtual void drawPage()=0;
 	virtual ~page(){}
-	MOUSEMSG m;
+	MOUSEMSG m; // don't call GetMouseMsg() here to avoid blocking during construction
 };
 
 class page_menu :virtual public page{
@@ -30,6 +30,7 @@ public:
 	void drawBoard();
 	void drawStone(int x, int y, int color);
 	void drawCursor(int x, int y, int color);
+	void drawHighlight(int x, int y); // highlight winning stones
 	bool placeStone(player& player0);
 	bool checkWin(int playerColor);
 	void drawGameStatus();

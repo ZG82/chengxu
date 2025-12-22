@@ -9,7 +9,7 @@ private:
 	wchar_t password[50];
 	int playersocer;
 public:
-	account(const wchar_t* user, const wchar_t* pass) {
+	account(const wchar_t* user, const wchar_t* pass) : playersocer(0) {
 		wcscpy_s(username, user);
 		wcscpy_s(password, pass);
 	}
@@ -17,6 +17,7 @@ public:
 	void add();
 	wchar_t* getUsername();
 	wchar_t* getPassword();
+
 };
 
 #endif
