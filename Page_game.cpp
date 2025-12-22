@@ -2,6 +2,7 @@
 #include"Player.h"
 #include <iostream>
 #include <cstdlib>
+#include <vector>
 #include "Initialization.h"
 
 
@@ -22,6 +23,10 @@ int winner = 0;
 
 // Store the five winning coordinates when a win is detected
 int winCoords[5][2] = { {0,0} };
+
+// Move history for undo
+struct Move { int x; int y; int color; };
+static std::vector<Move> moveHistory;
 
 //变量的声明
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,6 +53,8 @@ void page_game::cleararr() {
     }
     // clear recorded winning coords
     for (int i = 0; i < 5; ++i) { winCoords[i][0] = winCoords[i][1] = 0; }
+    // clear history
+    moveHistory.clear();
 }
 
 /// <summary>
@@ -155,6 +162,7 @@ bool page_game::placeStone(player& player) {
     }
     drawStone(player.cursorX, player.cursorY, player.color);
     board[player.cursorY][player.cursorX] = player.color;
+    moveHistory.push_back({ player.cursorX, player.cursorY, player.color });
     return true;
 }
 
@@ -310,12 +318,6 @@ void page_game::drawGameStatus() {
 
 
 void page_game::Run() {
-    //initgraph(WINDOW_SIZE, WINDOW_SIZE);
-
-    // 设置窗口背景色
-    //setbkcolor(WHITE);
-    //cleardevice();
-
     initGame();
 
     // 消息处理变量
@@ -386,6 +388,40 @@ void page_game::Run() {
             }
 
             if (msg.message == WM_KEYDOWN) {
+                if (msg.vkcode == VK_BACK) {
+                    if (!moveHistory.empty()) {
+                        Move last = moveHistory.back();
+                        moveHistory.pop_back();
+                        if (last.y >= 0 && last.y < BOARD_SIZE && last.x >= 0 && last.x < BOARD_SIZE) {
+                            board[last.y][last.x] = 0;
+                        }
+                        if (last.color == 1) {
+                            player1.active = true;
+                            player2.active = false;
+                        } else {
+                            player1.active = false;
+                            player2.active = true;
+                        }
+                        player1.cursorX = last.x; player1.cursorY = last.y;
+                        player2.cursorX = last.x; player2.cursorY = last.y;
+                        gameOver = false;
+                        winner = 0;
+                        for (int i = 0; i < 5; ++i) { winCoords[i][0] = winCoords[i][1] = 0; }
+                        drawBoard();
+                        for (int yy = 0; yy < BOARD_SIZE; yy++) {
+                            for (int xx = 0; xx < BOARD_SIZE; xx++) {
+                                if (board[yy][xx] != 0) drawStone(xx, yy, board[yy][xx]);
+                            }
+                        }
+                        if (player1.active) drawCursor(player1.cursorX, player1.cursorY, RED);
+                        else drawCursor(player2.cursorX, player2.cursorY, BLUE);
+                        drawGameStatus();
+                        FlushBatchDraw();
+                    }
+                    flushmessage(EX_KEY);
+                    continue;
+                }
+
 ////////////////// 玩家1控制 (WASD + F)
                 if (player1.active) {
                     switch (msg.vkcode) {
