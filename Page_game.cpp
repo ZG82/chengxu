@@ -34,7 +34,7 @@ void page_game::sign_in() {
     
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void page_game::drawPage() {
     cleardevice();
@@ -102,6 +102,11 @@ void page_game::drawBoard() {
 /// ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// </summary>
 void page_game::initGame() {
+    // reset board and flags so re-entering works
+    cleararr();
+    gameOver = false;
+    winner = 0;
+
     // 初始化玩家1
     player1.cursorX = BOARD_SIZE / 2;
     player1.cursorY = BOARD_SIZE / 2;
@@ -456,6 +461,8 @@ void page_game::Run() {
                                 winner = 1;
                                 player1.active = true;
                                 player2.active = false;
+                                // 更新排名与分数
+                                if (g_player1Account) updateRankingAfterWin(g_player1Account);
                             }
                            
                         }
@@ -494,6 +501,8 @@ void page_game::Run() {
                             if (checkWin(player2.color)) {
                                 gameOver = true;
                                 winner = 2;
+                                // 更新排名与分数
+                                if (g_player2Account) updateRankingAfterWin(g_player2Account);
                             }
                            
                         }

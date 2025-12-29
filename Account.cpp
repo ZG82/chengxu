@@ -13,24 +13,27 @@ std::vector<account*> g_accounts;
 account* g_player1Account = nullptr;
 account* g_player2Account = nullptr;
 
+// 链表形式的排行榜头指针
+account* g_rankHead = nullptr;
+
 //获取用户名和密码的指针类型
-wchar_t* account::getUsername() {
+const wchar_t* account::getUsername() const {
 	return username;
 }
-wchar_t* account::getPassword() {
+const wchar_t* account::getPassword() const {
 	return password;
 }
 //得分部分功能
 void account::add() {
 	playersocer++;
 }
-int account::getScore() {
+int account::getScore() const {
 	return playersocer;
 }
 void account::addnow() {
 	playersocernow++;
 }
-int account::getScorenow() {
+int account::getScorenow() const {
 	return playersocernow;
 }
 void account::commitNow() {
@@ -41,9 +44,52 @@ void account::resetNow() {
 	playersocernow = 0;
 }
 
+// Helper to get projected total used for ranking
+static int projectedTotal(const account* a) {
+	if (!a) return 0;
+	return a->getScore() + a->getScorenow();
+}
+
+// 根据 g_accounts 重建按 playersocer (+ playersocernow) 降序的链表，返回头指针
+account* rebuildRankList() {
+	account* head = nullptr;
+	for (auto a : g_accounts) {
+		// 将 a 插入到链表的合适位置（降序），比较 projected total
+		a->next = nullptr;
+		if (!head) {
+			head = a;
+			continue;
+		}
+		// 插入排序
+		if (projectedTotal(a) > projectedTotal(head)) {
+			a->next = head;
+			head = a;
+			continue;
+		}
+		account* prev = head;
+		account* cur = head->next;
+		while (cur && projectedTotal(cur) >= projectedTotal(a)) {
+			prev = cur;
+			cur = cur->next;
+		}
+		prev->next = a;
+		a->next = cur;
+	}
+	return head;
+}
+
+// 当某账户获胜后更新分数并重建排行榜
+void updateRankingAfterWin(account* winner) {
+	if (!winner) return;
+	// 增加胜利者总分
+	winner->add();
+	// 持久化并重建链表
+	saveAccounts();
+	g_rankHead = rebuildRankList();
+}
+
 //根据用户名查找账户
 account* findAccountByName(const wchar_t* name) {
-	//python中的循环居然可以在这里有类似的用法
 	for (auto a : g_accounts) {
 		if (wcscmp(a->getUsername(), name) == 0) return a;
 	}
@@ -68,7 +114,7 @@ void loadAccounts() {
 	g_accounts.clear();
 	std::ifstream ifs("Account.txt", std::ios::binary);
 	if (!ifs) {
-		std::cout << "数据异常！！！"; 
+		std::cout << "数据异常！！！";
 		return;
 	}
 	std::string line;
@@ -86,6 +132,8 @@ void loadAccounts() {
 		account* a = new account(user, pass, score);
 		g_accounts.push_back(a);
 	}
+	// 在加载后同时重建排行榜链表
+	g_rankHead = rebuildRankList();
 }
 //数据的存入
 void saveAccounts() {

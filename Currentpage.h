@@ -6,6 +6,7 @@ enum Pages {
     PAGE_GAME,
     PAGE_SETTING,
     PAGE_SAVE,
+    PAGE_RANK,
 };
 static Pages currentPage = PAGE_MENU;
 

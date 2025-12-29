@@ -17,10 +17,10 @@ public:
 	}
 	void add();
 	void addnow();
-	int getScore();
-	int getScorenow();
-	wchar_t* getUsername();
-	wchar_t* getPassword();
+	int getScore() const;
+	int getScorenow() const;
+	const wchar_t* getUsername() const;
+	const wchar_t* getPassword() const;
 	void commitNow();
 	void resetNow();
 	account * next=NULL;
@@ -30,16 +30,25 @@ extern std::vector<account*> g_accounts;
 extern account* g_player1Account;
 extern account* g_player2Account;
 
-//数据的处理
+// 链表形式的排行榜头指针
+extern account* g_rankHead;
+
+// 数据的处理
 void loadAccounts();
 void saveAccounts();
 
-//账户的登录与注册
+// 通过链表重建排行榜（按 playersocer 降序），返回头指针
+account* rebuildRankList();
+
+// 当某账户获胜后更新分数并重建排行榜
+void updateRankingAfterWin(account* winner);
+
+// 账户的登录与注册
 account* findAccountByName(const wchar_t* name);
 account* loginAccount(const wchar_t* name, const wchar_t* pass);
 account* registerAccount(const wchar_t* name, const wchar_t* pass);
 
-//登录状态的判定
+// 登录状态的判定
 bool ensurePlayersLoggedIn();
 
 #endif

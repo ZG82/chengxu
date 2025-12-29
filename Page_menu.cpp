@@ -13,8 +13,10 @@ void page_menu::drawPage() {
 	button btnStart(200, 100, 200, 60, L"开始游戏");
 	button btnSetting(200, 200, 200, 60, L"游戏设置");
 	button btnSave(200, 300, 200, 60, L"存档");
+	button btnRank(200, 400, 200, 60, L"排行榜");
 
 	btnStart.drawButton();
 	btnSetting.drawButton();
 	btnSave.drawButton();
+	btnRank.drawButton();
 }

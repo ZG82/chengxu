@@ -133,6 +133,7 @@
     <ClCompile Include="Page_game.cpp" />
     <ClCompile Include="Page_menu.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Page_rank.cpp" />
     <ClCompile Include="Page_save.cpp" />
     <ClCompile Include="Page_setting.cpp" />
     <ClCompile Include="Player.cpp" />

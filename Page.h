@@ -53,6 +53,11 @@ public:
 	void drawPage()override ;
 };
 
+class page_rank :virtual public page {
+public:
+	void drawPage()override ;
+};
+
 
 
 #endif

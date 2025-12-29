@@ -18,6 +18,7 @@ void run() {
         page_game P2;
         page_setting P3;
         page_save P4;
+        page_rank P5;
         // 初始绘制主菜单
         P1.drawPage();
         FlushBatchDraw();
@@ -95,6 +96,13 @@ void run() {
                                     FlushBatchDraw();
                                 }
                             }
+                            else if (msg.x >= 200 && msg.x <= 400 && msg.y >= 400 && msg.y <= 460) {
+                                if (msg.message == WM_LBUTTONDOWN) {
+                                    P5.drawPage();
+                                    currentPage = PAGE_RANK;
+                                    FlushBatchDraw();
+                                }
+                            }
                  }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                  else if (currentPage == PAGE_SETTING) {
@@ -108,6 +116,15 @@ void run() {
                  }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                  else if (currentPage == PAGE_SAVE) {
+                              if (msg.x >= 420 && msg.x <= 600 && msg.y >= 0 && msg.y <= 60 && msg.message == WM_LBUTTONDOWN) {
+                                  P1.drawPage();
+                                  currentPage = PAGE_MENU;
+                                  FlushBatchDraw();
+                                  continue;
+                              }
+                 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                 else if (currentPage == PAGE_RANK) {
                               if (msg.x >= 420 && msg.x <= 600 && msg.y >= 0 && msg.y <= 60 && msg.message == WM_LBUTTONDOWN) {
                                   P1.drawPage();
                                   currentPage = PAGE_MENU;

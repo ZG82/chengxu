@@ -53,6 +53,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>src\SourceFile</Filter>
     </ClCompile>
+    <ClCompile Include="Page_rank.cpp">
+      <Filter>src\SourceFile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Page.h">
