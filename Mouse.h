@@ -7,6 +7,7 @@
 #include"Button.h"
 #include "Initialization.h"
 #include"Currentpage.h"
+#include "Account.h"
 
 #ifndef Mouse
 #define Mouse
@@ -38,6 +39,16 @@ void run() {
                      //鼠标消息获取的判定，页面情况的分类
                             if (msg.x >= 200 && msg.x <= 400 && msg.y >= 100 && msg.y <= 160) {
                                 if (msg.message == WM_LBUTTONDOWN) {
+                                    std::cout << "[Mouse] Start button clicked\n";
+                                    // 直接进入游戏运行，让 page_game::Run 负责所有绘制
+                                    // 首先检查用户是否已登录
+                                    if (!ensurePlayersLoggedIn()) {
+                                        MessageBox(GetHWnd(), _T("需要登录两个玩家账户才能开始游戏。"), _T("登录取消"), MB_OK | MB_ICONWARNING);
+                                        continue;
+                                    }
+                                    if (g_player1Account) g_player1Account->resetNow();
+                                    if (g_player2Account) g_player2Account->resetNow();
+
                                     currentPage = PAGE_GAME;
                                     // 清空屏幕并绘制游戏页面一次，确保菜单已被清除且返回按钮可见
                                     BeginBatchDraw();
@@ -47,11 +58,17 @@ void run() {
                                     flushmessage(EX_MOUSE);
                                     flushmessage(EX_KEY);
                                     Sleep(50); // 稍作等待，稳定绘图缓冲区
+                                    std::cout << "[Mouse] Entering P2.Run()\n";
                                     // 进入游戏主循环
                                     P2.Run();
+                                    std::cout << "[Mouse] Returned from P2.Run()\n";
                                     // 确保游戏内的批绘已结束并清理消息
                                     flushmessage(EX_MOUSE);
                                     flushmessage(EX_KEY);
+                                    // 在返回菜单时，把会话分数提交到总分并保存
+                                    if (g_player1Account) { g_player1Account->commitNow(); }
+                                    if (g_player2Account) { g_player2Account->commitNow(); }
+                                    saveAccounts();
                                     // 清理游戏状态，避免棋盘残留
                                     P2.cleararr();
                                     // 返回主菜单，下一次循环会重绘菜单
@@ -108,6 +125,10 @@ void run() {
                         MB_ICONQUESTION | MB_YESNO
                     );
                     if (result == IDYES) {
+                        // 在退出程序前提交会话分数并保存
+                        if (g_player1Account) { g_player1Account->commitNow(); }
+                        if (g_player2Account) { g_player2Account->commitNow(); }
+                        saveAccounts();
                         closegraph();
                         std::cout << std::endl << std::endl << "游戏已退出!!!" << std::endl << std::endl;
                         exit(0);

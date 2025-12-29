@@ -1,5 +1,6 @@
 #include"Page.h"
 #include"Player.h"
+#include"Account.h"
 #include <iostream>
 #include <cstdlib>
 #include <vector>
@@ -21,15 +22,19 @@ player player1, player2;
 bool gameOver = false;
 int winner = 0;
 
-// Store the five winning coordinates when a win is detected
 int winCoords[5][2] = { {0,0} };
 
-// Move history for undo
 struct Move { int x; int y; int color; };
 static std::vector<Move> moveHistory;
 
 //变量的声明
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void page_game::sign_in() {
+    
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void page_game::drawPage() {
     cleardevice();
@@ -51,9 +56,7 @@ void page_game::cleararr() {
             board[y][x] = 0;
         }
     }
-    // clear recorded winning coords
     for (int i = 0; i < 5; ++i) { winCoords[i][0] = winCoords[i][1] = 0; }
-    // clear history
     moveHistory.clear();
 }
 
@@ -323,7 +326,6 @@ void page_game::Run() {
     // 消息处理变量
     ExMessage msg;
     ExMessage msg0;
-
     BeginBatchDraw();
     while (!gameOver) {
         // 绘制页面顶部与返回按钮，先清空屏幕的一部分并显示页眉

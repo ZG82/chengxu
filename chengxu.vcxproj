@@ -151,7 +151,7 @@
   <ItemGroup>
     <Text Include="Dates.txt" />
     <Text Include="README.md" />
-    <Text Include="文本.txt" />
+    <Text Include="Account.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CMakeLists.txt">

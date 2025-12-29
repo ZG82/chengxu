@@ -85,7 +85,7 @@
     <Text Include="Dates.txt">
       <Filter>src</Filter>
     </Text>
-    <Text Include="文本.txt" />
+    <Text Include="Account.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CMakeLists.txt" />

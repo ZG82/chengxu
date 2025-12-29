@@ -22,7 +22,6 @@ public:
 	wchar_t* gettext ();	
 	
 	void drawButton();//外部接口
-	//void drawButton2();
 };
 
 
