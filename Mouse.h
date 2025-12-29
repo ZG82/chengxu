@@ -40,7 +40,6 @@ void run() {
                      //鼠标消息获取的判定，页面情况的分类
                             if (msg.x >= 200 && msg.x <= 400 && msg.y >= 100 && msg.y <= 160) {
                                 if (msg.message == WM_LBUTTONDOWN) {
-                                    std::cout << "[Mouse] Start button clicked\n";
                                     // 直接进入游戏运行，让 page_game::Run 负责所有绘制
                                     // 首先检查用户是否已登录
                                     if (!ensurePlayersLoggedIn()) {
@@ -59,10 +58,8 @@ void run() {
                                     flushmessage(EX_MOUSE);
                                     flushmessage(EX_KEY);
                                     Sleep(50); // 稍作等待，稳定绘图缓冲区
-                                    std::cout << "[Mouse] Entering P2.Run()\n";
                                     // 进入游戏主循环
                                     P2.Run();
-                                    std::cout << "[Mouse] Returned from P2.Run()\n";
                                     // 确保游戏内的批绘已结束并清理消息
                                     flushmessage(EX_MOUSE);
                                     flushmessage(EX_KEY);
@@ -79,7 +76,7 @@ void run() {
                                     cleardevice();
                                     P1.drawPage();
                                     EndBatchDraw();
-                                    continue; // avoid processing the same msg further
+                                    continue; 
                                 }
                             }
                             else if (msg.x >= 200 && msg.x <= 400 && msg.y >= 200 && msg.y <= 260) {

@@ -2,6 +2,7 @@
 #include"Player.h"
 #include"Account.h"
 #include <iostream>
+#include<fstream>
 #include <cstdlib>
 #include <vector>
 #include "Initialization.h"
@@ -29,12 +30,22 @@ static std::vector<Move> moveHistory;
 
 //变量的声明
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-void page_game::sign_in() {
-    
+void page_game::savegamedate() {
+    std::ofstream outFile("Date.text");
+    if (!outFile.is_open()) {
+        std::cout << "数据加载失败！";
+    }
+    for (int i = 0; i <= BOARD_SIZE - 1; i++) {
+        for (int j = 0; j <= BOARD_SIZE - 1; j++) {
+            outFile << board[i][j] << " ";
+        }
+    }
+    outFile.close();
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// <summary>
+/// ////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// </summary>
 
 void page_game::drawPage() {
     cleardevice();

@@ -40,6 +40,7 @@ public:
 	void cleararr();
 	bool sign_in1=false;
 	bool sign_in2=false;
+	void savegamedate();
 };
 
 class page_setting :virtual public page {

@@ -92,5 +92,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CMakeLists.txt" />
+    <None Include="text.text">
+      <Filter>src</Filter>
+    </None>
   </ItemGroup>
 </Project>

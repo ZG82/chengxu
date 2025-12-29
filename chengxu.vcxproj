@@ -159,6 +159,7 @@
       <SubType>
       </SubType>
     </None>
+    <None Include="text.text" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

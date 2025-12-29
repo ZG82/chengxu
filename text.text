@@ -1,0 +1,10 @@
+void saveAccounts() {
+	std::ofstream ofs("Account.txt", std::ios::binary);
+	for (auto a : g_accounts) {
+		char user_utf8[128] = {0};
+		char pass_utf8[128] = {0};
+		WideCharToMultiByte(CP_UTF8, 0, a->getUsername(), -1, user_utf8, 128, nullptr, nullptr);
+		WideCharToMultiByte(CP_UTF8, 0, a->getPassword(), -1, pass_utf8, 128, nullptr, nullptr);
+		ofs << user_utf8 << " " << pass_utf8 << " " << a->getScore() << "\n";
+	}
+}
