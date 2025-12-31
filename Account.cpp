@@ -44,7 +44,6 @@ void account::resetNow() {
 	playersocernow = 0;
 }
 
-// Helper to get projected total used for ranking
 static int projectedTotal(const account* a) {
 	if (!a) return 0;
 	return a->getScore() + a->getScorenow();
