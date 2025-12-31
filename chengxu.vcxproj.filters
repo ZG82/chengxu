@@ -41,7 +41,7 @@
     <ClCompile Include="Initialization.cpp">
       <Filter>src\SourceFile</Filter>
     </ClCompile>
-    <ClCompile Include="Page_save.cpp">
+    <ClCompile Include="Page_help.cpp">
       <Filter>src\SourceFile\Pages</Filter>
     </ClCompile>
     <ClCompile Include="Account.cpp">
@@ -54,7 +54,7 @@
       <Filter>src\SourceFile</Filter>
     </ClCompile>
     <ClCompile Include="Page_rank.cpp">
-      <Filter>src\SourceFile</Filter>
+      <Filter>src\SourceFile\Pages</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
