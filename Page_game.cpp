@@ -39,9 +39,38 @@ void page_game::savegamedate() {
         for (int j = 0; j <= BOARD_SIZE - 1; j++) {
             outFile << board[i][j] << " ";
         }
+        outFile<< std::endl;
     }
-    outFile.close();
+	outFile.close();
+    for (int i = 0; i <= BOARD_SIZE - 1; i++) {
+        for (int j = 0; j <= BOARD_SIZE - 1; j++) {
+            board[i][j]=0;
+        }
+    }
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+bool page_game::isFileEmpty() {
+	std::ifstream fil("Date.text");
+	return fil.peek() == std::ifstream::traits_type::eof();
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+void page_game::loadoldBoard() {
+    std::ifstream fin("Date.text", std::ios::in);
+    if (!fin) {
+        std::cout << "数据存档错误！" << std::endl;
+    }
+    for (int i = 0; i <= BOARD_SIZE - 1; i++) {
+        for (int j = 0; j <= BOARD_SIZE - 1; j++) {
+            fin >> board[i][j];
+        }
+    }
+    fin.close();
+	std::ofstream("Date.text",std::ios::trunc).close();
+}
+
 
 /// <summary>
 /// ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -339,6 +368,21 @@ void page_game::drawGameStatus() {
 void page_game::Run() {
     initGame();
 
+    if (isFileEmpty()) {
+        Sleep(10);
+    }
+    else {
+        int result = MessageBox(
+            GetHWnd(),
+            _T("检查到有存档"),
+            _T("是否继续游戏"),
+            MB_ICONQUESTION | MB_YESNO
+        );
+        if (result == IDYES) {
+			loadoldBoard();
+        }
+    }
+
     // 消息处理变量
     ExMessage msg;
     ExMessage msg0;
@@ -389,6 +433,7 @@ void page_game::Run() {
                         MB_ICONQUESTION | MB_YESNO
                     );
                     if (result == IDYES) {
+                        savegamedate();
                         // 清除其他挂起的消息，避免回到菜单后被遗留的鼠标事件触发
                         flushmessage(EX_MOUSE);
                         flushmessage(EX_KEY);

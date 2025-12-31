@@ -38,9 +38,9 @@ public:
 	bool istie();
 	void Run();
 	void cleararr();
-	bool sign_in1=false;
-	bool sign_in2=false;
 	void savegamedate();
+	void loadoldBoard();
+	bool isFileEmpty();
 };
 
 class page_setting :virtual public page {
