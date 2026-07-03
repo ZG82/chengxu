@@ -7,7 +7,9 @@ add_executable(project
 			  Initialization.cpp
 			  Page_game.cpp
 			  Page_menu.cpp
-			  Page_save.cpp
+			  Page_help.cpp
+			  Page_rank.cpp
 			  Page_setting.cpp
 			  Button.cpp
-			  )	
+			  Account.cpp
+			  )
